@@ -14,8 +14,8 @@ export class AuthRepository {
   }
 
   async createUser(data : any) : Promise<any> {
-
-    return this.authModel.create(data);
+    const user = this.authModel.create(data);
+    return user;
   }
 
 //   async createUser(payload: Partial<Auth>): Promise<Auth> {

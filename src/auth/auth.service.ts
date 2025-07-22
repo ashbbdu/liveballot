@@ -5,21 +5,25 @@ import {
 } from '@nestjs/common';
 import { AuthRepository } from './auth.repository';
 import { UserDTO } from './dtos/auth.dto';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
   constructor(private readonly authRepository: AuthRepository) {}
 
   async register(data: UserDTO) {    
+    const { password } = data;
     try {
       const existingUser = await this.authRepository.findByEmail(data.email);
-      console.log(existingUser , "eis");
       if (existingUser) {
         throw new ConflictException('User already registered');
       }
 
-      const { firstName, lastName, email, password } = data;
-      const createdUser = await this.authRepository.createUser(data);
+   
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const payload = {...data , password : hashedPassword};
+      const createdUser = await this.authRepository.createUser(payload);
       
       if (!createdUser) {
         throw new InternalServerErrorException('Failed to create user');
@@ -27,7 +31,7 @@ export class AuthService {
 
       return {
         message: 'User created successfully',
-        userId: createdUser.id,
+        userId: createdUser.userId,
       };
     } catch (error) {
       if (
