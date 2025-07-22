@@ -5,27 +5,24 @@ import { AuthModule } from './auth/auth.module';
 import { Auth } from './auth/auth.entity';
 import { AuthController } from './auth/auth.controller';
 import { AppService } from './app.service';
+import { SequelizeModule } from '@nestjs/sequelize';
 
 @Module({
-  imports: [AuthModule],
+  imports: [
+    SequelizeModule.forRoot({
+      dialect: 'mysql',
+      host: 'localhost',
+      port: 3306,
+      username: 'root',
+      password: 'ash@Compunnel09',
+      database: 'liveballot-dev',
+      autoLoadModels: true,
+      // synchronize: true, // Only for dev!
+    }),
+    // Modules will go here
+    AuthModule,
+  ],
+  providers: [AppService],
   controllers: [AppController],
-  providers: [AppService
-    ,{
-    
-     provide: 'SEQUELIZE',
-    useFactory: async () => {
-      const sequelize = new Sequelize({
-        dialect: 'mysql',
-        host: 'localhost',
-        port: 3306,
-        username: 'root',
-        password: 'ash@Compunnel09',
-        database: 'liveballot-dev',
-      });
-      sequelize.addModels([Auth]);
-      await sequelize.sync();
-      return sequelize;
-    }
-  }],
 })
 export class AppModule {}

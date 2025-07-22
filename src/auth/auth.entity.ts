@@ -10,26 +10,30 @@ import {
   AutoIncrement,
 } from 'sequelize-typescript';
 
-@Table
+@Table({
+    tableName : "user"
+})
 export class Auth extends Model {
  @PrimaryKey
   @AutoIncrement
   @Column
-  userId: number;
+  declare userId: number;
 
   @Column
-  firstName: string;
+  declare firstName: string;
 
   @Column
-  lastName: number;
+  declare lastName: string;
 
   @Column
-  email: string;
+  declare email: string;
   @Column
-  password: string;
+  declare password: string;
 
-  @Column
-  profilePicture: number;
+  @Column   
+declare profilePicture? : string;
+// profilePicture! : number;
+
 
   @CreatedAt
   @Column({ type: DataType.DATE })

@@ -13,6 +13,11 @@ export class AuthRepository {
     return this.authModel.findOne({ where: { email } });
   }
 
+  async createUser(data : any) : Promise<any> {
+
+    return this.authModel.create(data);
+  }
+
 //   async createUser(payload: Partial<Auth>): Promise<Auth> {
 //     return this.authModel.create(payload);
 //   }
