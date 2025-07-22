@@ -1,9 +1,6 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { Sequelize } from 'sequelize-typescript';
 import { AuthModule } from './auth/auth.module';
-import { Auth } from './auth/auth.entity';
-import { AuthController } from './auth/auth.controller';
 import { AppService } from './app.service';
 import { SequelizeModule } from '@nestjs/sequelize';
 
@@ -17,7 +14,8 @@ import { SequelizeModule } from '@nestjs/sequelize';
       password: 'ash@Compunnel09',
       database: 'liveballot-dev',
       autoLoadModels: true,
-      // synchronize: true, // Only for dev!
+      synchronize: true, // Only for dev!
+      logging : false
     }),
     // Modules will go here
     AuthModule,
