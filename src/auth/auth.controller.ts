@@ -10,6 +10,11 @@ export class AuthController {
         return this.authService.register(data);
     }
 
+    @Post('/login')
+    login(@Body ()data : any)  {
+        return this.authService.login(data);
+    }
+
     @Get("/test")
     test () {
         return "hii"
