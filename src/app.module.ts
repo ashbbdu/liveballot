@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AuthModule } from './auth/auth.module';
 import { AppService } from './app.service';
 import { SequelizeModule } from '@nestjs/sequelize';
+import { PollModule } from './poll/poll.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { SequelizeModule } from '@nestjs/sequelize';
     }),
     // Modules will go here
     AuthModule,
+    PollModule,
   ],
   providers: [AppService],
   controllers: [AppController],
