@@ -5,13 +5,13 @@ import { AuthRepository } from './auth.repository';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Auth } from './auth.entity';
 import { JwtModule } from '@nestjs/jwt';
+import { Poll } from 'src/poll/poll.entitiy';
 @Module({
   
-imports: [SequelizeModule.forFeature([Auth]) , JwtModule.register({
+imports: [SequelizeModule.forFeature([Auth , Poll]) , JwtModule.register({
       global: true,
-      // secret: process.env.JWT_SECRET_KEY,
-      secret : "supersecretpassword",
-      signOptions: { expiresIn: '60s' },
+      secret: `${process.env.JWT_SECRET_KEY}`,
+      signOptions: { expiresIn: '3600s' },
     }),
   ],
 

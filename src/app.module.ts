@@ -4,6 +4,7 @@ import { AuthModule } from './auth/auth.module';
 import { AppService } from './app.service';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { PollModule } from './poll/poll.module';
+import { OptionsModule } from './options/options.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { PollModule } from './poll/poll.module';
     // Modules will go here
     AuthModule,
     PollModule,
+    OptionsModule,
   ],
   providers: [AppService],
   controllers: [AppController],

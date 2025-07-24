@@ -1,4 +1,4 @@
-import { AddPrimaryKeyConstraintOptions } from 'sequelize';
+import { ForeignKey } from 'sequelize';
 import {
   Table,
   Column,
@@ -8,7 +8,9 @@ import {
   UpdatedAt,
   PrimaryKey,
   AutoIncrement,
+  HasMany,
 } from 'sequelize-typescript';
+import { Option } from 'src/options/options.entity';
 
 @Table({
   tableName: 'poll',
@@ -25,8 +27,10 @@ export class Poll extends Model {
   @Column
   declare description?: string;
 
-  @Column({ type: DataType.JSON, allowNull: true })
-  options?: string[];
+ 
+  @HasMany(() => Option)
+  declare options: Option[];
+
   @Column
   declare password: string;
 
