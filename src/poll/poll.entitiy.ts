@@ -35,10 +35,6 @@ export class Poll extends Model<Poll> {
   @HasMany(() => Option)
   declare options: Option[];
 
-  @AllowNull(true)
-  @Column
-  declare password?: string;
-
   @ForeignKey(() => Auth)
   @AllowNull(false)
   @Column

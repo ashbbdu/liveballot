@@ -7,8 +7,12 @@ import { Poll } from './poll.entitiy';
 export class PollRepository {
   constructor(
     @InjectModel(Poll)
-    private readonly authModel: typeof Poll,
+    private readonly pollModel: typeof Poll,
   ) {}
 
-  
+  async createPoll (data : any) {
+    const poll = await this.pollModel.create(data);
+    return poll;
+  }
+
 }

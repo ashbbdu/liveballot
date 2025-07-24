@@ -6,10 +6,8 @@ export class PollService {
       constructor(
         private readonly pollRepository: PollRepository,
       ) {}
-      
+
       createPoll  (data : any) {
-        const { question , description } = data;
-        console.log(question ,  description);
-        
+        return this.pollRepository.createPoll(data);
       }
 }
