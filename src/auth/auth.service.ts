@@ -81,4 +81,8 @@ export class AuthService {
       );
     }
   }
+
+  async getAllUsers () {
+    return this.authRepository.getAllUsers();
+  }
 }

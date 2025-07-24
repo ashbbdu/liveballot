@@ -8,13 +8,15 @@ import {
   UpdatedAt,
   PrimaryKey,
   AutoIncrement,
+  HasMany,
 } from 'sequelize-typescript';
+import { Poll } from 'src/poll/poll.entitiy';
 
 @Table({
-    tableName : "user"
+  tableName: 'user',
 })
 export class Auth extends Model {
- @PrimaryKey
+  @PrimaryKey
   @AutoIncrement
   @Column
   declare userId: number;
@@ -30,10 +32,12 @@ export class Auth extends Model {
   @Column
   declare password: string;
 
-  @Column   
-declare profilePicture? : string;
-// profilePicture! : number;
+  @HasMany(() => Poll)
+  declare polls: Poll[];
 
+  @Column
+  declare profilePicture?: string;
+  // profilePicture! : number;
 
   @CreatedAt
   @Column({ type: DataType.DATE })

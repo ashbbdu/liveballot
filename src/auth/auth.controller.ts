@@ -15,9 +15,9 @@ export class AuthController {
         return this.authService.login(data);
     }
 
-    @Get("/test")
-    test () {
-        return "hii"
+    @Get("/list")
+    getAllUsers () {
+        return this.authService.getAllUsers()
     }
   }
 

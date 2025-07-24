@@ -35,6 +35,10 @@ export class Poll extends Model<Poll> {
   @HasMany(() => Option)
   declare options: Option[];
 
+  getOptions(): Option[] {
+    return this.options || [];
+  }
+
   @ForeignKey(() => Auth)
   @AllowNull(false)
   @Column

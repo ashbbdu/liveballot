@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
 import { PollService } from './poll.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
@@ -9,7 +9,12 @@ export class PollController {
         private readonly pollService : PollService
     ) {};
     @Post("/create")
-    createPoll (@Body () data : any , @Request() req : Request,) {
+    createPoll (@Body () data : any , @Request() req : Request) {
         return this.pollService.createPoll(data , req);
+    }
+
+    @Get("/list")
+    getPoll () {
+        return this.pollService.getAllPolls();
     }
 }
