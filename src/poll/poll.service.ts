@@ -7,7 +7,7 @@ export class PollService {
         private readonly pollRepository: PollRepository,
       ) {}
 
-      createPoll  (data : any) {
-        return this.pollRepository.createPoll(data);
+      createPoll  (data : any , req) {
+        return this.pollRepository.createPoll(data , req);
       }
 }

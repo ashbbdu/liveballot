@@ -62,10 +62,7 @@ export class AuthService {
       if (!isMatch) {
         throw new UnauthorizedException('Incorrect password');
       }
-      const token = await this.jwtService.signAsync({
-        email: existingUser.email,
-        userId: existingUser.id,
-      });
+      const token = await this.jwtService.signAsync(existingUser.dataValues);
       const user = {...existingUser.dataValues , token , password : ""}
       return {
         message : "User logged in Successfully !",
