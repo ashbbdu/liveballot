@@ -11,7 +11,6 @@ export class PollRepository {
   ) {}
 
   async createPoll(data: any, req: any) {
-    console.log(data, 'dataaaa');
     const payload = { ...data, createdBy: req.user.userId };
     const poll = await this.pollModel.create(payload);
     return poll;
