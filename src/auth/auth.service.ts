@@ -51,7 +51,7 @@ export class AuthService {
 
   async login(data: any) {
     const { email, password } = data;
-    const existingUser = await this.authRepository.findByEmail(data.email);
+    const existingUser = await this.authRepository.findByEmail(email);
     if (!existingUser) {
       throw new ConflictException('User is not registered , kindly signup');
     }
@@ -61,17 +61,24 @@ export class AuthService {
       const isMatch = await bcrypt.compare(password, hashedPassword);
       if (!isMatch) {
         throw new UnauthorizedException('Incorrect password');
-      } else {
-        const token = await this.jwtService.signAsync({
-          email: existingUser.email,
-          userId: existingUser.id,
-        });
-        return {
-          user: existingUser,
-          token,
-        };
       }
+      const token = await this.jwtService.signAsync({
+        email: existingUser.email,
+        userId: existingUser.id,
+      });
+      const user = {...existingUser.dataValues , token , password : ""}
+      return {
+        message : "User logged in Successfully !",
+        user,
+        token,
+      };
     } catch (e) {
+      if (
+        e instanceof UnauthorizedException ||
+        e instanceof ConflictException
+      ) {
+        throw e;
+      }
       throw new InternalServerErrorException(
         'Something went wrong while validating the password',
       );
