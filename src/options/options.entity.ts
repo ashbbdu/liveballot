@@ -4,26 +4,28 @@ import {
   Model,
   ForeignKey,
   BelongsTo,
-  DataType,
   PrimaryKey,
   AutoIncrement,
+  AllowNull,
 } from 'sequelize-typescript';
 import { Poll } from 'src/poll/poll.entitiy';
 
 @Table({ tableName: 'options' })
-export class Option extends Model {
+export class Option extends Model<Option> {
   @PrimaryKey
   @AutoIncrement
   @Column
   declare id: number;
 
+  @AllowNull(false)
   @Column
-  declare text: string;  // the option text/value
+  declare text: string;
 
   @ForeignKey(() => Poll)
+  @AllowNull(false)
   @Column
   declare pollId: number;
 
   @BelongsTo(() => Poll)
-  poll: Poll;
+  declare poll: Poll;
 }

@@ -1,47 +1,59 @@
-import { ForeignKey } from 'sequelize';
 import {
   Table,
   Column,
   Model,
   CreatedAt,
-  DataType,
   UpdatedAt,
   PrimaryKey,
   AutoIncrement,
   HasMany,
+  ForeignKey,
+  BelongsTo,
+  AllowNull,
+  DataType,
 } from 'sequelize-typescript';
+import { Auth } from 'src/auth/auth.entity';
 import { Option } from 'src/options/options.entity';
 
 @Table({
   tableName: 'poll',
 })
-export class Poll extends Model {
+export class Poll extends Model<Poll> {
   @PrimaryKey
   @AutoIncrement
   @Column
   declare id: number;
 
+  @AllowNull(false)
   @Column
   declare question: string;
 
+  @AllowNull(true)
   @Column
   declare description?: string;
 
- 
   @HasMany(() => Option)
   declare options: Option[];
 
+  @AllowNull(true)
   @Column
-  declare password: string;
+  declare password?: string;
 
-  @Column({ allowNull: false })
+  @ForeignKey(() => Auth)
+  @AllowNull(false)
+  @Column
   declare createdBy: number;
 
+  @BelongsTo(() => Auth)
+  declare user: Auth;
+
+  @AllowNull(false)
   @Column({ defaultValue: true })
   declare isActive: boolean;
 
-  @Column({ type: DataType.INTEGER, allowNull: true })
-  maxVotesPerUser?: number;
+  @AllowNull(true)
+  @Column({ type: DataType.INTEGER })
+  declare maxVotesPerUser?: number;
 
   @CreatedAt
   @Column({ type: DataType.DATE })
