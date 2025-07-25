@@ -7,8 +7,10 @@ import {
   PrimaryKey,
   AutoIncrement,
   AllowNull,
+  HasMany,
 } from 'sequelize-typescript';
 import { Poll } from 'src/poll/poll.entitiy';
+import { Vote } from 'src/vote/vote.entity';
 
 @Table({ tableName: 'options' })
 export class Option extends Model<Option> {
@@ -25,6 +27,9 @@ export class Option extends Model<Option> {
   @AllowNull(false)
   @Column
   declare pollId: number;
+
+  @HasMany(() => Vote)
+declare votes: Vote[];
 
   @BelongsTo(() => Poll)
   declare poll: Poll;

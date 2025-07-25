@@ -1,8 +1,13 @@
 import { Module } from "@nestjs/common";
 import { VoteGateway } from "./vote.gateway";
+import { SequelizeModule } from "@nestjs/sequelize";
+import { Vote } from "./vote.entity";
+import { VoteService } from "./vote.service";
 
 @Module({
-    providers : [VoteGateway]
+    imports : [SequelizeModule.forFeature([Vote])],
+    providers : [VoteGateway, VoteService]
+
 })
 export class VoteMoudle {
     

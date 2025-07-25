@@ -7,6 +7,7 @@ import {
   WebSocketServer,
 } from '@nestjs/websockets';
 import { Server } from 'http';
+import { VoteService } from './vote.service';
 
 let voteCounts = {
   1: 0,
@@ -19,6 +20,7 @@ let voteCounts = {
   },
 })
 export class VoteGateway implements OnGatewayConnection, OnGatewayDisconnect {
+constructor (private readonly voteService : VoteService) {}
   @WebSocketServer()
   server: Server;
   handleConnection(client: any) {
@@ -32,9 +34,11 @@ export class VoteGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @SubscribeMessage('vote')
   handleVote(@MessageBody() body: any) {
     console.log('Received vote from client:', body);
+    // I need pollId and optionId
     const option = body.option;
     // Now broadcast this vote to all clients
-    voteCounts[option] = (voteCounts[option] || 0) + 1;
+    // voteCounts[option] = (voteCounts[option] || 0) + 1;
+    this.voteService.castVote(option);
     this.server.emit('voteUpdate', {
       counts: voteCounts,
     });
@@ -46,7 +50,8 @@ export class VoteGateway implements OnGatewayConnection, OnGatewayDisconnect {
     console.log('Received chat from client:', body);
 
     this.server.emit('updateChat', {
-        msg : body.option
+        msg : body.option,
+        user : "Ashish"
     });
   }
 }

@@ -14,6 +14,7 @@ import {
 } from 'sequelize-typescript';
 import { Auth } from 'src/auth/auth.entity';
 import { Option } from 'src/options/options.entity';
+import { Vote } from 'src/vote/vote.entity';
 
 @Table({
   tableName: 'poll',
@@ -54,6 +55,9 @@ export class Poll extends Model<Poll> {
   @AllowNull(true)
   @Column({ type: DataType.INTEGER })
   declare maxVotesPerUser?: number;
+
+  @HasMany(() => Vote)
+  declare votes: Vote[];
 
   @CreatedAt
   @Column({ type: DataType.DATE })

@@ -11,6 +11,7 @@ import {
   HasMany,
 } from 'sequelize-typescript';
 import { Poll } from 'src/poll/poll.entitiy';
+import { Vote } from 'src/vote/vote.entity';
 
 @Table({
   tableName: 'user',
@@ -38,6 +39,9 @@ export class Auth extends Model {
   @Column
   declare profilePicture?: string;
   // profilePicture! : number;
+
+  @HasMany(() => Vote)
+declare votes: Vote[];
 
   @CreatedAt
   @Column({ type: DataType.DATE })
