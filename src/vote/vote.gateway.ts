@@ -9,10 +9,6 @@ import {
 import { Server } from 'http';
 import { VoteService } from './vote.service';
 
-let voteCounts = {
-  1: 0,
-  2: 0,
-};
 
 @WebSocketGateway({
   cors: {
@@ -46,9 +42,9 @@ export class VoteGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   @SubscribeMessage('vote')
   async handleVote(@MessageBody() body: any) {
-    console.log(body ,"body");
+    // console.log(body ,"body");
     
-    console.log('Received vote from client:', body.option);
+    // console.log('Received vote from client:', body.option);
 
     try {
       const savedVote = await this.voteService.castVote(body.option);

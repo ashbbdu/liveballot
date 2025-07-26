@@ -41,7 +41,7 @@ export class Auth extends Model {
   // profilePicture! : number;
 
   @HasMany(() => Vote)
-declare votes: Vote[];
+  declare votes: Vote[];
 
   @CreatedAt
   @Column({ type: DataType.DATE })
