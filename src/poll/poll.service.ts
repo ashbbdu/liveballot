@@ -16,4 +16,8 @@ export class PollService {
      async getAllPolls () {        
         return  this.pollRepository.getAllPolls();
       }
+
+      getPollWithVotes (pollId : any) {
+        return this.pollRepository.getPollWithVotes(pollId);
+      }
 }
