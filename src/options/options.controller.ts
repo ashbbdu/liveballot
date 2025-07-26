@@ -12,5 +12,9 @@ export class OptionsController {
         
         const user = req.user;
         return this.optionService.addOptions(data , user);
-    }    
+    } 
+    @Get()
+    getAllOptions () {
+        return this.optionService.getAllOptions();
+    }
 }

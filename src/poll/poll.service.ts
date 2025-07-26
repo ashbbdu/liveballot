@@ -18,6 +18,7 @@ export class PollService {
       }
 
       getPollWithVotes (pollId : any) {
-        return this.pollRepository.getPollWithVotes(pollId);
+        const pollDetails = this.pollRepository.getPollWithVotes(pollId);
+        return pollDetails;
       }
 }

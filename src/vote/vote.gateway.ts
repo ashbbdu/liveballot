@@ -46,11 +46,12 @@ export class VoteGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   @SubscribeMessage('vote')
   async handleVote(@MessageBody() body: any) {
+    console.log(body ,"body");
+    
     console.log('Received vote from client:', body.option);
 
     try {
       const savedVote = await this.voteService.castVote(body.option);
-      console.log('saved', savedVote);
       this.server.emit('voteUpdate', {
         message: 'Vote successfully recorded',
         totalVotes : savedVote.totalVotes , 

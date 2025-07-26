@@ -25,8 +25,36 @@ export class PollRepository {
     return polls;
   }
 
+  async getPollWithVotes(id: number) {
+    const pollDetails: any = await this.pollModel.findOne({
+      where: { id: id },
+      include: [
+        {
+          model: Option,
+          include: [
+            {
+              model: Vote,
+            },
+          ],
+        },
+      ],
+    });
+    const transformedPoll = {
+      id: pollDetails.id,
+      question: pollDetails.question,
+      description: pollDetails.description,
+      createdBy: pollDetails.createdBy,
+      isActive: pollDetails.isActive,
+      maxVotesPerUser: pollDetails.maxVotesPerUser,
+      createdAt: pollDetails.createdAt,
+      updatedAt: pollDetails.updatedAt,
+      options: pollDetails.options.map((option) => ({
+        id: option.id,
+        text: option.text,
+        votes: option.votes.length,
+      })),
+    };
 
-  async getPollWithVotes(pollId: number) {
-    return 1;
+    return transformedPoll;
   }
 }

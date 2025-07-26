@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { InjectModel } from '@nestjs/sequelize';
 import { Option } from './options.entity';
+import { Vote } from 'src/vote/vote.entity';
 
 @Injectable()
 export class OptionsRepository {
@@ -22,6 +23,10 @@ export class OptionsRepository {
 
   async getAllOptions () {
     const res =await this.optionModel.findAll();
-    return res;
+    const options = await Option.findAll({
+  where: { pollId: 4 },
+  include: [Vote],
+});
+    return options;
   }
 }
