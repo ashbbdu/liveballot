@@ -1,8 +1,14 @@
-import { VoteRepository } from "./vote.repository";
+import { Injectable } from '@nestjs/common';
+import { VoteRepository } from './vote.repository';
 
-export class VoteService  {
-    constructor (private readonly voteRepository : VoteRepository) {};
-    castVote (data : any) {
-       return this.voteRepository.castVote(data);
-    }
-};
+@Injectable()
+export class VoteService {
+  constructor(private readonly voteRepository: VoteRepository) {}
+  async castVote(data: any) {
+    const { vote, optionVoteCount, pollId, optionId , totalVotes } =
+      await this.voteRepository.castVote(data);
+    console.log(vote, 'vote from repo');
+
+    return { vote, optionVoteCount, pollId, optionId , totalVotes };
+  }
+}
