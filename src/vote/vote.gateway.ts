@@ -49,7 +49,7 @@ export class VoteGateway implements OnGatewayConnection, OnGatewayDisconnect {
     try {
       const savedVote = await this.voteService.castVote(body.option);
       this.server.emit('voteUpdate', {
-        message: 'Vote successfully recorded', //
+        message: 'Vote successfully recorded', 
         totalVotes : savedVote.totalVotes , 
         pollId: savedVote.pollId,
         optionId: savedVote.optionId,
