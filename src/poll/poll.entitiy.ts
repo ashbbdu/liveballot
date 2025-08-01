@@ -43,7 +43,7 @@ export class Poll extends Model<Poll> {
   @ForeignKey(() => Auth)
   @AllowNull(false)
   @Column
-  declare createdBy: number;
+  declare createdBy: number; // this is userId
 
   @BelongsTo(() => Auth)
   declare user: Auth;
